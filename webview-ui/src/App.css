@@ -1,0 +1,121 @@
+body {
+  padding: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.tool-call-title-container {
+  color: var(--vscode-descriptionForeground);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.tool-call-title-container:hover {
+  color: var(--vscode-foreground);
+  transition: color 0.3s;
+}
+
+.user-input {
+  --corner-radius: 4;
+  width: 100%;
+}
+
+.user-input-button {
+  background-color: var(--vscode-inputOption-background);
+  color: var(--vscode-inputOption-foreground);
+  padding: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.user-input-button[aria-disabled="true"] {
+  color: var(--vscode-disabledForeground);
+  cursor: not-allowed;
+}
+
+.user-input-loader {
+  background-color: var(--vscode-inputOption-background);
+  color: var(--vscode-inputOption-foreground);
+  padding: 3px;
+  border-radius: 3px;
+  -webkit-animation: rotation 2s infinite linear;
+  animation: rotation 2s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+.user-input-button.pause {
+  animation: pulsate 1.5s infinite;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.user-input-button:hover[aria-disabled="false"] {
+  background-color: var(--vscode-inputOption-hoverBackground);
+  transition: background-color 0.3s;
+}
+
+.dropdown-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.dropdown-container .label {
+  display: block;
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: var(--type-ramp-base-font-size);
+  line-height: var(--type-ramp-base-line-height);
+  margin-bottom: 2px;
+}
+
+.dropdown-container > vscode-dropdown {
+  width: 100%;
+}
+
+vscode-panel-view {
+  padding: 10px 0;
+}
