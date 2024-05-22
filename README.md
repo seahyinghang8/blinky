@@ -27,7 +27,7 @@ Blinky leverages the VSCode API, Language Server Protocol (LSP), and print state
 3. Describe the bug you are trying to fix in the chatbox.\
    <img src="media/describe-bug.gif" alt="describing bug in a chatbox" width="300" />
 4. Specify the repro steps to trigger the bug. (Optional but recommended because it will give the agent access to runtime for debugging).\
-   <img src="media/specify-repro-step.gif" alt="specifying the repro steps" width="250" />\
+   <img src="media/specify-repro-step.gif" alt="specifying the repro steps" width="250" />
 5. Ensure there are no other terminal processes that might have a port conflict with your build and test command.
 6. Start the agent and watch it go brrrr... 💨
 
