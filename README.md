@@ -48,7 +48,7 @@ If you found Blinky helpful, please give our repo a star ⭐ to show your suppor
     - Have the LLM collaborate with user to generate a repro script. This could be tied into the repository's testing framework.
     - Re-design the repro to fit better into a developer's workflow.
 - Supporting more models (e.g. LLaMA 3, Claude).
-- Better agent history filtering and backtrackin.g
+- Better agent history filtering and backtracking.
   - Problem: As the agent progress, the prompt gets too long. This slows LLM inference and increases the chance that Blinky gets confused.
   - Ideas:
     - More robust technique to prune already explored paths.
