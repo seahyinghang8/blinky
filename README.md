@@ -9,6 +9,10 @@
   <a href="https://github.com/seahyinghang8/blinky">Github</a>
 </p>
 
+
+https://github.com/seahyinghang8/blinky/assets/7028464/8a41a523-b3ce-4bf6-b15d-b4939f5983b7
+
+
 Blinky is an open-source debugging agent for VSCode that uses LLMs to help identify and fix backend code errors (inspired by [SWE-agent](https://swe-agent.com)).
 
 Blinky leverages the VSCode API, Language Server Protocol (LSP), and print statement debugging to triangulate and address [bugs in real-world backend systems](https://github.com/calcom/cal.com/issues/9243).
