@@ -2,18 +2,16 @@
    <img src="media/banner.png" width="100%" alt="blinky banner" />
 </a>
 
-<h1 align="center">Blinky: An open-source debugging agent for VSCode</h1>
+<h1 align="center">Blinky: An open-source AI debugging agent for VSCode</h1>
 <p align="center">
   <a href="https://marketplace.visualstudio.com/items?itemName=blinky.blinky">VSCode Extension</a>&nbsp; | &nbsp;
   <a href="https://discord.gg/d3AUNHDb">Discord</a>&nbsp; | &nbsp;
   <a href="https://github.com/seahyinghang8/blinky">Github</a>
 </p>
 
-
 https://github.com/seahyinghang8/blinky/assets/7028464/8a41a523-b3ce-4bf6-b15d-b4939f5983b7
 
-
-Blinky is an open-source debugging agent for VSCode that uses LLMs to help identify and fix backend code errors (inspired by [SWE-agent](https://swe-agent.com)).
+Blinky is an open-source AI debugging agent for VSCode that uses LLMs to help identify and fix backend code errors (inspired by [SWE-agent](https://swe-agent.com)).
 
 Blinky leverages the VSCode API, Language Server Protocol (LSP), and print statement debugging to triangulate and address [bugs in real-world backend systems](https://github.com/calcom/cal.com/issues/9243).
 
@@ -67,7 +65,7 @@ We extended their core insight around building good agent-computer interfaces by
 
 Second, we thought it would be cool to have SWE-agent embedded within VSCode so devs can use it during development and provide feedback to it midway using the VSCode extension UI
 
-We also experimented with using a "match and replace" technique to edit files instead of using start line numbers, end line numbers and new text. The folks at [aider.chat do something similar](https://aider.chat/docs/unified-diffs.html) as well.
+We also experimented with using a "match and replace" technique to edit files instead of using start line numbers, end line numbers and new text. The folks at [aider.chat](https://aider.chat/docs/unified-diffs.html) do something similar as well.
 
 ### Why do you need "match and replace" editing and how does it work?
 

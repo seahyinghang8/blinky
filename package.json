@@ -1,7 +1,7 @@
 {
   "name": "blinky",
-  "displayName": "Blinky",
-  "description": "An open-source debugging agent",
+  "displayName": "Blinky: AI Debugging Agent",
+  "description": "An open-source AI debugging agent",
   "icon": "assets/extension-icon.png",
   "publisher": "blinky",
   "repository": {
@@ -34,9 +34,9 @@
         {
           "type": "webview",
           "id": "blinky-chat",
-          "name": "Debug Agent",
+          "name": "AI Debugging Agent",
           "icon": "assets/ghost.svg",
-          "contextualTitle": "Debug Agent"
+          "contextualTitle": "AI Debugging Agent"
         }
       ]
     },
