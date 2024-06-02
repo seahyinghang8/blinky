@@ -139,6 +139,8 @@ export function convertReproValsToVerificationSteps(
   ) {
     return steps;
   }
+  // Get user set build command timeout and process ready text (if any)
+  const reproConfig = vscode.workspace.getConfiguration('blinky.repro');
   if (reproVals.buildCommand.trim() !== '') {
     // Build Step e.g. starting the server
     const buildStep: VerificationStepArgs = {
@@ -148,18 +150,22 @@ export function convertReproValsToVerificationSteps(
         'DEBUG-BLINKY:|error|Error|exception|Exception|fail|Fail',
       defaultLogTypeFilters: [LogType.ERROR, LogType.STDERR],
     };
-    // Get user set build command timeout and process ready text (if any)
-    const reproConfig = vscode.workspace.getConfiguration('blinky.repro');
     const buildReadyText: string | undefined =
       reproConfig.get('buildReadyText');
-    const buildInactivityTimeout: number | null | undefined = reproConfig.get(
-      'buildInactivityTimeout'
-    );
     if (buildReadyText && buildReadyText.length > 0) {
       buildStep.processReadyKeywords = [buildReadyText];
     }
+    const buildInactivityTimeout: number | null | undefined = reproConfig.get(
+      'buildInactivityTimeout'
+    );
+    const buildProcessTimeout: number | null | undefined = reproConfig.get(
+      'buildProcessTimeout'
+    );
     if (buildInactivityTimeout && buildInactivityTimeout > 0) {
       buildStep.inactivityTimeout = buildInactivityTimeout;
+    }
+    if (buildProcessTimeout && buildProcessTimeout > 0) {
+      buildStep.processTimeout = buildProcessTimeout;
     }
     steps.push(buildStep);
   }
@@ -192,11 +198,23 @@ export function convertReproValsToVerificationSteps(
       );
     }
   }
-  steps.push({
+  const testStep: VerificationStepArgs = {
     type: VerificationStepType.LocalProcess,
     command: testCommand,
     evaluateOutput: responseEval,
-  });
+  };
+  const testInactivityTimeout: number | null | undefined = reproConfig.get(
+    'testInactivityTimeout'
+  );
+  const testProcessTimeout: number | null | undefined =
+    reproConfig.get('testProcessTimeout');
+  if (testInactivityTimeout && testInactivityTimeout > 0) {
+    testStep.inactivityTimeout = testInactivityTimeout;
+  }
+  if (testProcessTimeout && testProcessTimeout > 0) {
+    testStep.processTimeout = testProcessTimeout;
+  }
+  steps.push(testStep);
   return steps;
 }
 

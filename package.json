@@ -68,6 +68,30 @@
           ],
           "default": null
         },
+        "blinky.repro.buildProcessTimeout": {
+          "description": "Max time build processes can run for. In milliseconds.",
+          "type": [
+            "number",
+            "null"
+          ],
+          "default": null
+        },
+        "blinky.repro.testInactivityTimeout": {
+          "description": "If there are no new logs after the timeout duration, the test process is assumed to be completed and ready. Timeout is in milliseconds.",
+          "type": [
+            "number",
+            "null"
+          ],
+          "default": null
+        },
+        "blinky.repro.testProcessTimeout": {
+          "description": "Max time test processes can run for. In milliseconds.",
+          "type": [
+            "number",
+            "null"
+          ],
+          "default": null
+        },
         "blinky.repro.testCommand": {
           "type": "string"
         },
