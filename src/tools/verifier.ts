@@ -3,6 +3,7 @@ import { StringDecoder } from 'string_decoder';
 import { getRootUri } from './utils';
 import treeKill from 'tree-kill';
 import { escapeRegExpCharacters } from './ripgrep/strings';
+import { OutputChannel } from '../utils';
 
 export enum VerificationStepType {
   LocalProcess = 'local process',
@@ -17,6 +18,7 @@ export interface ILocalProcessStepArgs {
   processReadyKeywords?: string[];
   processFailedKeywords?: string[];
   inactivityTimeout?: number;
+  processTimeout?: number;
 
   defaultLogTextFilters?: string;
   defaultLogTypeFilters?: LogType[];
@@ -77,6 +79,7 @@ export class Verifier {
                 ).join('|')
               ),
               inactivityTimeout: option.inactivityTimeout,
+              processTimeout: option.processTimeout,
               defaultLogTextFilters: option.defaultLogTextFilters,
               defaultLogTypeFilters: option.defaultLogTypeFilters,
             }
@@ -148,6 +151,7 @@ export enum LogType {
 
 const DEFAULT_INACTIVITY_TIMEOUT = 30000;
 const DEFAULT_GRACEFUL_EXIT_TIMEOUT = 10000;
+const DEFAULT_PROCESS_TIMEOUT = 120000;
 const DEFAULT_PROCESS_READY_REGEX: RegExp[] = [
   /Press CTRL\+C to shut down\./, // .NET
   /\(Press CTRL\+C to quit\)/, // Flask / FastAPI
@@ -171,6 +175,8 @@ interface ProcessStepOptions {
   // If there is no new outputs in stdout or stderr after inactivity timeout,
   // process will be marked as success and ready
   inactivityTimeout?: number;
+  // Process will be killed after this timeout if it does not exit
+  processTimeout?: number;
 
   defaultLogTextFilters?: string;
   defaultLogTypeFilters?: LogType[];
@@ -186,6 +192,7 @@ class LocalProcessStep implements IVerificationStep {
   private failureMatchRegex?: RegExp;
   private inactivityTimeout: number;
   private gracefulExitTimeout?: number;
+  private processTimeout?: number;
   private evaluateOutput?: (a: string) => { logs: string; pass: boolean };
   private isReadyPromise?: Promise<boolean>;
   private readyPromiseResolved: boolean = false;
@@ -210,11 +217,16 @@ class LocalProcessStep implements IVerificationStep {
     this.defaultLogTypeFilters = options?.defaultLogTypeFilters ?? [];
     this.gracefulExitTimeout =
       options?.gracefulExitTimeout ?? DEFAULT_GRACEFUL_EXIT_TIMEOUT;
+    this.processTimeout = options?.processTimeout ?? DEFAULT_PROCESS_TIMEOUT;
     this.evaluateOutput = evaluateOutput;
   }
 
   start() {
-    this.proc = spawn(this.command, { cwd: this.cwd, shell: true });
+    this.proc = spawn(this.command, {
+      cwd: this.cwd,
+      shell: true,
+      timeout: this.processTimeout,
+    });
 
     this.isReadyPromise = new Promise((resolve) => {
       this.readyPromiseResolved = false;
