@@ -105,11 +105,15 @@ instance_template: |-
   Your response:
 next_step_template: |-
   {observation}
-  As a reminder, here's the user issue you're working on: {userMessage}
+  As a reminder, here's the user issue you're working on:
+  {userMessage}
+
   Your concise response:
 next_step_no_output_template: |-
   Your function ran successfully and did not produce any output.
-  As a reminder, here's the user issue you're working on: {userMessage}
+  As a reminder, here's the user issue you're working on:
+  {userMessage}
+
   Your concise response:
 demonstration_template: |
   Here is a demonstration of how to correctly accomplish this task.

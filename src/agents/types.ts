@@ -38,7 +38,7 @@ export interface IAgent {
     state: State,
     streamCallback: (accumulatedMessage: string) => void
   ) => Promise<ForwardStep | null>;
-  setObservation: (observation: string | null) => void;
+  setObservation: (observation: string | null, userMessages?: string) => void;
   updateEditInfo: (editInfo: Record<string, EditMetadata[]>) => void;
   updateDidActionsFail: (failed: boolean) => void;
   undo: (...args: any[]) => Promise<string>;
