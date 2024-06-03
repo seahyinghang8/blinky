@@ -179,8 +179,12 @@ export class VanillaAgent implements IAgent {
     throw new FormatError('Failed to Parse Model Output');
   }
 
-  setObservation(observation: string | null) {
+  setObservation(observation: string | null, userMessages?: string) {
     this.currentObservation = observation;
+    // Add new user messages to the task context
+    if (userMessages) {
+      this.taskContext.userMessage += '\n' + userMessages;
+    }
   }
 
   updateEditInfo(editInfo: Record<string, any>) {

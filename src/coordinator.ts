@@ -229,13 +229,12 @@ export class Coordinator {
       } else {
         this.initialVerifierContext = '';
       }
+      this.agent.setTaskContext({
+        issue: this.userFirstMessage + '\n\n' + this.initialVerifierContext,
+        userMessage: this.userFirstMessage,
+        files: [],
+      });
     }
-
-    this.agent.setTaskContext({
-      issue: this.userFirstMessage + '\n\n' + this.initialVerifierContext,
-      userMessage: this.userFirstMessage,
-      files: [],
-    });
   }
 
   _checkAPIKey() {
@@ -280,7 +279,7 @@ export class Coordinator {
         });
       }
     }
-    this.agent.setObservation(message);
+    this.agent.setObservation(message, userMsg);
     this.trajectory.push({
       role: 'user',
       content: userMsg,
@@ -415,6 +414,7 @@ export class Coordinator {
       const { observations, editInfo, failed } =
         await this.toolbox.executeActions(step.actions);
       let observationStr = observations.join('\n----------------\n');
+      let newUserMessage = '';
       // Update the agent with the observations
       // Append pending user messages to the agent's observations
       if (this.pendingUserMessage.length > 0) {
@@ -427,10 +427,11 @@ export class Coordinator {
             thought: message,
           });
         }
+        newUserMessage = this.pendingUserMessage.join('\n');
         this.pendingUserMessage = [];
         this.trajectoryUpdated();
       }
-      this.agent.setObservation(observationStr);
+      this.agent.setObservation(observationStr, newUserMessage);
       this.agent.updateEditInfo(editInfo);
       this.agent.updateDidActionsFail(failed);
       // Updated trajectory with observations
